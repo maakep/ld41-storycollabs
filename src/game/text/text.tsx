@@ -23,9 +23,26 @@ export class Text extends React.Component<ITextType, IStateType>{
         };
     }
 
+    voice: string = "UK English Male";
+    speakText() {
+        let rv = (window as any).responsiveVoice;
+
+        if (rv == undefined || !rv.voiceSupport()) {
+            return;
+        }
+
+        if (!rv.isPlaying()) {
+            // Only works if the text isn't too long
+            rv.speak(this.state.storyText, this.voice, {pitch: 1, rate: 1});       
+        }
+        else {
+            rv.cancel();
+        }
+    }
+
     render() {
         return (
-            <span data-user={ this.props.name }>{ this.state.storyText }</span>
+            <span onClick={ () => this.speakText() } data-user={ this.props.name }>{ this.state.storyText }</span>
         );
     }
 }

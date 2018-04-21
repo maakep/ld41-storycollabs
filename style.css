@@ -95,6 +95,7 @@ span:hover {
     background-color: rgba(0,0,0,0.22);
 }
 
+/* Currently not being used, saved becuase I'm gonna do something very similar
 .text-to-speech {
     background: url("/assets/images/Speaker_Icon.svg");
     background-size: cover;
@@ -106,7 +107,7 @@ span:hover {
     top: 20px;
     background-color: white;
     border-radius: 50%;
-}
+}*/
 
 .text-to-speech:hover:active {
     background-color: grey;
