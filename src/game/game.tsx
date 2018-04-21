@@ -55,7 +55,6 @@ export default class Game extends React.Component<IPropType, IStateType> {
         
         this.newMessageAudio = new Audio("../../assets/audio/NewMessage.mp3");
         this.errorAudio = new Audio("../../assets/audio/Error.mp3");
-        this.newMessageAudio.volume = 0.2;
 
         socket.emit("client:getstory");
     }

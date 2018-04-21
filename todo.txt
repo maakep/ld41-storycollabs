@@ -1,2 +1,13 @@
-- Add joining rooms on /ABCD
-- Add lobby that redirects to rooms
+todo:
+
+- [ ] Titel?
+        va?
+
+- [ ] history-tab: spara ner dem på fil för lagring? ladda vid server-start.
+	När X personer klickar "done" så arkiveras den.
+
+- [ ] sido-chat?
+
+- [x] text to speech-knapp!!!
+
+- [ ] Notifikation i <title>?
