@@ -20,6 +20,7 @@ export default class Game extends React.Component<IPropType, IStateType> {
     newMessageAudio: any;
     errorAudio: any;
 
+    responsiveVoice: any;
 
     constructor(props: IPropType) {
         super(props);
@@ -53,6 +54,7 @@ export default class Game extends React.Component<IPropType, IStateType> {
         
         this.newMessageAudio = new Audio("../../assets/audio/NewMessage.mp3");
         this.errorAudio = new Audio("../../assets/audio/Error.mp3");
+        this.newMessageAudio.volume = 0.2;
 
         socket.emit("client:getstory");
     }
@@ -76,10 +78,38 @@ export default class Game extends React.Component<IPropType, IStateType> {
         }, 4000);
     }
 
+    readStory() {
+        let rv = (window as any).responsiveVoice;
+
+        if (rv == undefined || !rv.voiceSupport()) {
+            this.displayError("Your browser doesn't have Text-To-Speech support, sorry.");
+            return;
+        }
+
+        if (!rv.isPlaying()) {
+                this.speakStory();
+        }
+        else {
+            rv.cancel();
+        }
+    }
+
+    voice: string = "UK English Male";
+    speakStory() {
+        let rv = (window as any).responsiveVoice;
+
+        // Only works if the text isn't too long
+        rv.speak(this.state.story.map(e => {
+            return e.story;
+        }).join(""), this.voice, {pitch: 1, rate: 1});
+    }
+
     render() {
         return (
             <div className={ "container" }>
-                <div className={ "story" } >
+                <div className={ "text-to-speech" } onClick={ () => this.readStory() }>
+                </div>
+                <div className={ "story" } >                
                     <h1>Story header</h1>
                     { 
                         this.state.story.map((value, index) => {

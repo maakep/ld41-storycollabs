@@ -16,11 +16,14 @@ export class EnterName extends React.Component<null, IStateType> {
     public setName(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.keyCode === 13) {
             const newName = e.currentTarget.value;
-            if (newName.length > 3) {
+            if (newName.length > 3 && newName.length < 30) {
                 localStorage.setItem("ld41-name", newName);
                 this.setState({name: newName});
-            } else {
+            } else if (newName.length <= 3){
                 e.currentTarget.value += 1337;
+            } else if (newName.length >= 30) {
+                e.currentTarget.value = "";
+                e.currentTarget.placeholder = "Too long name";
             }
         }
     }

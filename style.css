@@ -77,7 +77,8 @@ span:hover:before {
     background: #000;
     color: white;
     position: fixed;
-    top: 0;
+    bottom: 100;
+    height: 43px;
     left: -7px;
     right: -7px;
     padding: 15px;
@@ -94,6 +95,22 @@ span:hover {
     background-color: rgba(0,0,0,0.22);
 }
 
+.text-to-speech {
+    background: url("/assets/images/Speaker_Icon.svg");
+    background-size: cover;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.text-to-speech:hover:active {
+    background-color: grey;
+}
 
 .loader,
 .loader:before,
