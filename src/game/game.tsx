@@ -11,6 +11,7 @@ interface IStateType {
 
 interface IPropType {
     name: string;
+    logout: () => void;
 }
 
 export default class Game extends React.Component<IPropType, IStateType> {
@@ -81,7 +82,8 @@ export default class Game extends React.Component<IPropType, IStateType> {
     render() {
         return (
             <div className={ "container" }>
-                <div className={ "story" } >                
+            <div onClick={() => this.props.logout() } className={ "log-out" }></div>
+                <div className={ "story" }>                
                     <h1>Story header</h1>
                     { 
                         this.state.story.map((value, index) => {

@@ -28,10 +28,15 @@ export class EnterName extends React.Component<null, IStateType> {
         }
     }
 
+    logout() {
+        localStorage.removeItem("ld41-name");
+        this.setState({name: null});
+    }
+
     public render() {
         return (
             (this.state.name != null)
-                ? <Game name={this.state.name} />
+                ? <Game name={this.state.name} logout={this.logout.bind(this)} />
                 : <input 
                         className={"enter-name"}
                         placeholder={"Click Enter to submit your username"} 
