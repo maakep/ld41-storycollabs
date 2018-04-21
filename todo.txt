@@ -1,0 +1,2 @@
+- Add joining rooms on /ABCD
+- Add lobby that redirects to rooms
