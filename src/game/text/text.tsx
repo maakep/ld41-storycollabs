@@ -67,21 +67,24 @@ export class Text extends React.Component<ITextType, IStateType>{
     }
 
     render() {
-        return (              
-                <span   className={ ((this.props.active || this.state.hover) && "active ") + " story-sentence" }
-                        onClick = { this.onClick.bind(this) } 
-                        data-user = { this.props.name } 
+        return (
+            <span>         
+                <span   className={ ((this.props.active || this.state.hover) && "active") + " story-sentence" }
+                        onClick = { this.onClick.bind(this) }  
                         onMouseEnter = { this.onEnter.bind(this) }
-                        onMouseLeave = { this.onLeave.bind(this) }>
+                        onMouseLeave = { this.onLeave.bind(this) }
+                        data-user = { this.props.name }
+                        data-id = { this.props.id }>
                     { this.state.storyText }
-                    {(this.state.hover || this.props.active) && (
+                </span>
+                {(this.state.hover || this.props.active) && (
                         <div className = { "text-context-menu" }>
                             <div className = { "context-name" }>
                                 { this.props.name }
                             </div>
                             {this.props.active && (
                                 <div className = { "voting" }>
-                                    <div className = { "vote up" }>
+                                    <div className = { "vote up" } onClick={ this.upvote.bind(this) }>
                                     +
                                     </div>
                                     <div className = { "vote down" }>
@@ -91,17 +94,7 @@ export class Text extends React.Component<ITextType, IStateType>{
                             )}
                         </div>
                     )}
-                </span>
-                /*{ this.state.showVoting && (
-                    <div className={ "voting" }>
-                        <div className={ "vote up" } onClick = { this.upvote.bind(this) }>
-                        +
-                        </div>
-                        <div className={ "vote down" }>
-                        -
-                        </div>
-                    </div>
-                )}*/
+            </span>
         );
     }
 }

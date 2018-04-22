@@ -75,46 +75,25 @@ body {
     cursor: pointer;
 }
 
-/*.story-sentence:hover:active {
-    background-color: green;
-}
-
-span:hover:before {
-    content: attr(data-user);
-    display: block;
-    background: #000;
-    color: white;
-    position: fixed;
-    bottom: 100;
-    height: 43px;
-    left: -7px;
-    right: -7px;
-    padding: 15px;
-    text-align: center;
-    z-index: 2;
-}*/
-
 h1 {
     font-family: 'Annie Use Your Telescope', cursive;
     font-size: 50px;
     font-weight: bold;
 }
 
-/*.story-sentence:hover {
-    background-color: rgba(0,0,0,0.22);
-}*/
-
 .active {
     background-color: rgba(0,0,0,0.22);
 }
 
 .text-context-menu {
-    display: block;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
     background: #000;
     color: white;
     position: fixed;
     bottom: 100;
-    height: 43px;
+    height: 73px;
     left: -7px;
     right: -7px;
     padding: 15px;
@@ -123,10 +102,22 @@ h1 {
 }
 
 .voting {
-    float: left;
+    display: flex;
+    justify-content: center;
 }
 .vote {
-    float:left;
+    width: 30px;
+    cursor: pointer;
+}
+.vote:hover {
+    zoom: 1.3;
+}
+
+.up { 
+    color: green;
+}
+.down {
+    color: red;
 }
 
 .log-out {
@@ -151,69 +142,6 @@ h1 {
     right: 20px;
     top: 70px;
     text-align: center;
-}
-
-.loader,
-.loader:before,
-.loader:after {
-  border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation: load7 1.8s infinite ease-in-out;
-  animation: load7 1.8s infinite ease-in-out;
-}
-.loader {
-  color: #353535;
-  font-size: 10px;
-  margin: 80px auto;
-  /*position: relative;*/
-  text-indent: -9999em;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-
-  /* My edits */
-  position: fixed;
-  bottom: 110px;
-  left: 50px;
-}
-.loader:before,
-.loader:after {
-  content: '';
-  position: absolute;
-  top: 0;
-}
-.loader:before {
-  left: -3.5em;
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-.loader:after {
-  left: 3.5em;
-}
-@-webkit-keyframes load7 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 2.5em 0 -1.3em;
-  }
-  40% {
-    box-shadow: 0 2.5em 0 0;
-  }
-}
-@keyframes load7 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 2.5em 0 -1.3em;
-  }
-  40% {
-    box-shadow: 0 2.5em 0 0;
-  }
 }
 
 @media screen and (max-width: 992px) {

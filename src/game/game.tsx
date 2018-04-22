@@ -67,6 +67,14 @@ export default class Game extends React.Component<IPropType, IStateType> {
         socket.emit("client:getdata");
     }
 
+    componentDidMount() {
+        document.addEventListener('mousedown', this.clearActiveSentences.bind(this));
+    }
+    
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.clearActiveSentences.bind(this));
+    }
+
     send(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.keyCode === 13 && !this.inputDisabled) {
             let story: ITextType = {name: this.props.name, story: e.currentTarget.value};
@@ -90,11 +98,27 @@ export default class Game extends React.Component<IPropType, IStateType> {
         this.setState({activeId: id});
     }
 
+    clearActiveSentences(e: any) {
+        if (e.which !== 1)
+            return;
+
+        let clickedDataId = e.target.attributes["data-id"];
+        let hitAllowedClicks = (e.target.className === "text-context-menu" 
+                                    || e.target.className === "voting"
+                                    || e.target.className === "vote up"
+                                    || e.target.className === "vote down"
+                                    || e.target.className === "context-name");
+        console.log(e.target.className);
+        if (clickedDataId === undefined && !hitAllowedClicks) {
+            this.setState({activeId: null});
+        }
+    }
+
     render() {
         return (
             <div className={ "container" }>
             <div onClick={() => this.props.logout() } className={ "log-out" } title={"Log out"}></div>
-            <div className={ "readers font" } title={this.state.readers + " people currently online"}> { this.state.readers } </div>
+            <div className={ "readers font" } title={this.state.readers + " authors currently looking"}> { this.state.readers } </div>
                 <div className={ "story" }>        
                     <h1>Collaborate to make a story...</h1>
                     { 
