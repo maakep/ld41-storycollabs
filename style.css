@@ -17,38 +17,6 @@ body {
     padding-left: 30px;
 }
 
-@media screen and (max-width: 992px) {
-    .enter-name {
-        width: 100%;
-        margin-left: 0;
-        transform: none;
-        height: 120px;
-        font-size: 30px;
-    }
-
-    .story-input {
-        top:0 !important;
-    }
-
-    .story {
-        margin-top: 150px !important;
-    }
-
-    .story-sentence:hover:before {
-        top: 100px !important;
-    }
-
-    .error-message {
-        top: 100px !important;
-        bottom: auto !important;
-        font-size: 300% !important;
-    }
-
-    .log-out {
-        top: 120px !important;
-    }
-}
-
 .container {
     display: flex;
     padding: 0;
@@ -185,10 +153,6 @@ h1 {
     text-align: center;
 }
 
-.text-to-speech:hover:active {
-    background-color: grey;
-}
-
 .loader,
 .loader:before,
 .loader:after {
@@ -250,4 +214,40 @@ h1 {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
+}
+
+@media screen and (max-width: 992px) {
+    .enter-name {
+        width: 100%;
+        margin-left: 0;
+        transform: none;
+        height: 120px;
+        font-size: 30px;
+    }
+
+    .story-input {
+        top:0 !important;
+    }
+
+    .story {
+        margin-top: 150px !important;
+    }
+
+    .story-sentence:hover:before {
+        top: 100px !important;
+    }
+
+    .error-message {
+        top: 100px !important;
+        bottom: auto !important;
+        font-size: 300% !important;
+    }
+
+    .log-out {
+        top: 120px !important;
+    }
+
+    .readers {
+        top: 170px;
+    }
 }

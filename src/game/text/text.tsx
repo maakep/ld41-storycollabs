@@ -26,7 +26,6 @@ export class Text extends React.Component<ITextType, IStateType>{
             storyText: storyText,
             hover: false,
         };
-        console.log("my id: " + this.props.id + " the active id: " + this.props.active);
     }
 
     voice: string = "UK English Male";
@@ -73,8 +72,7 @@ export class Text extends React.Component<ITextType, IStateType>{
                         onClick = { this.onClick.bind(this) } 
                         data-user = { this.props.name } 
                         onMouseEnter = { this.onEnter.bind(this) }
-                        onMouseLeave = { this.onLeave.bind(this) }
-                        >
+                        onMouseLeave = { this.onLeave.bind(this) }>
                     { this.state.storyText }
                     {(this.state.hover || this.props.active) && (
                         <div className = { "text-context-menu" }>
