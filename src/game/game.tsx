@@ -8,6 +8,7 @@ interface IStateType {
     story: ITextType[];
     errorMessage: string;
     readers: number;
+    activeId: string;
 }
 
 interface IPropType {
@@ -31,6 +32,7 @@ export default class Game extends React.Component<IPropType, IStateType> {
             story: [],
             errorMessage: '',
             readers: null,
+            activeId: null,
         };
 
         this.inputRef = React.createRef();
@@ -56,7 +58,6 @@ export default class Game extends React.Component<IPropType, IStateType> {
         });
 
         socket.on("server:readersUpdate", (readers: number) => {     
-            console.log(readers);
             this.setState({ readers });
         });
         
@@ -85,18 +86,26 @@ export default class Game extends React.Component<IPropType, IStateType> {
         }, 4000);
     }
 
+    activateSentence(id: string) {
+        this.setState({activeId: id});
+    }
+
     render() {
         return (
             <div className={ "container" }>
             <div onClick={() => this.props.logout() } className={ "log-out" } title={"Log out"}></div>
             <div className={ "readers font" } title={this.state.readers + " people currently online"}> { this.state.readers } </div>
-                <div className={ "story" }>                
-                    <h1>Story header</h1>
+                <div className={ "story" }>        
+                    <h1>Collaborate to make a story...</h1>
                     { 
                         this.state.story.map((value, index) => {
-                            return <Text name={value.name} 
-                                         story={value.story} 
-                                         key={index}
+                            return <Text 
+                                        active = {(this.state.activeId === value.id)}
+                                        id = {value.id}
+                                        activate = {this.activateSentence.bind(this)}
+                                        name = {value.name} 
+                                        story = {value.story} 
+                                        key = {value.id}
                                     />
                         })
                     }

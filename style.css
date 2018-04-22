@@ -77,6 +77,8 @@ body {
 }
 
 .story-input {
+    font-family: 'Annie Use Your Telescope';
+    font-weight: bold;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -136,6 +138,20 @@ h1 {
 
 .active {
     background-color: rgba(0,0,0,0.22);
+}
+
+.text-context-menu {
+    display: block;
+    background: #000;
+    color: white;
+    position: fixed;
+    bottom: 100;
+    height: 43px;
+    left: -7px;
+    right: -7px;
+    padding: 15px;
+    text-align: center;
+    z-index: 2;
 }
 
 .voting {

@@ -53,6 +53,8 @@ export default class Game {
     }
 
     setStory(text: ITextType) {
+        text.id = text.name + new Date().getTime();
+        console.log(text.id);
         this.story = [...this.story, text];
     }
 }

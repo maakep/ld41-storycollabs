@@ -3,11 +3,14 @@ import * as React from "react";
 export interface ITextType {
     name: string;
     story: string;
+    id?: string;
+    active?: boolean;
+    activate?: (id: string) => void;
 }
 
 interface IStateType {
     storyText: string;
-    active: boolean;
+    hover: boolean;
 }
 
 export class Text extends React.Component<ITextType, IStateType>{
@@ -21,8 +24,9 @@ export class Text extends React.Component<ITextType, IStateType>{
 
         this.state = {
             storyText: storyText,
-            active: false,
+            hover: false,
         };
+        console.log("my id: " + this.props.id + " the active id: " + this.props.active);
     }
 
     voice: string = "UK English Male";
@@ -44,14 +48,15 @@ export class Text extends React.Component<ITextType, IStateType>{
 
     onClick() {
         this.speakText();
+        this.props.activate(this.props.id);
     }
 
     onEnter() {
-        this.setState({ active: true });
+        this.setState({ hover: true });
     }
 
     onLeave() {
-        this.setState({ active: false });
+        this.setState({ hover: false });
     }
 
     upvote() {
@@ -64,13 +69,30 @@ export class Text extends React.Component<ITextType, IStateType>{
 
     render() {
         return (              
-                <span   className={ (this.state.active && "active ") + " story-sentence" }
+                <span   className={ ((this.props.active || this.state.hover) && "active ") + " story-sentence" }
                         onClick = { this.onClick.bind(this) } 
                         data-user = { this.props.name } 
                         onMouseEnter = { this.onEnter.bind(this) }
                         onMouseLeave = { this.onLeave.bind(this) }
                         >
                     { this.state.storyText }
+                    {(this.state.hover || this.props.active) && (
+                        <div className = { "text-context-menu" }>
+                            <div className = { "context-name" }>
+                                { this.props.name }
+                            </div>
+                            {this.props.active && (
+                                <div className = { "voting" }>
+                                    <div className = { "vote up" }>
+                                    +
+                                    </div>
+                                    <div className = { "vote down" }>
+                                    -
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </span>
                 /*{ this.state.showVoting && (
                     <div className={ "voting" }>
