@@ -7,7 +7,7 @@ export interface ITextType {
 
 interface IStateType {
     storyText: string;
-    showVoting: boolean;
+    active: boolean;
 }
 
 export class Text extends React.Component<ITextType, IStateType>{
@@ -21,7 +21,7 @@ export class Text extends React.Component<ITextType, IStateType>{
 
         this.state = {
             storyText: storyText,
-            showVoting: false,
+            active: false,
         };
     }
 
@@ -42,12 +42,16 @@ export class Text extends React.Component<ITextType, IStateType>{
         }
     }
 
+    onClick() {
+        this.speakText();
+    }
+
     onEnter() {
-        this.setState({ showVoting: true });
+        this.setState({ active: true });
     }
 
     onLeave() {
-        this.setState({ showVoting: false });
+        this.setState({ active: false });
     }
 
     upvote() {
@@ -60,9 +64,12 @@ export class Text extends React.Component<ITextType, IStateType>{
 
     render() {
         return (              
-                <span   className={ "story-sentence" }
-                        onClick = { this.speakText.bind(this) } 
-                        data-user = { this.props.name } >
+                <span   className={ (this.state.active && "active ") + " story-sentence" }
+                        onClick = { this.onClick.bind(this) } 
+                        data-user = { this.props.name } 
+                        onMouseEnter = { this.onEnter.bind(this) }
+                        onMouseLeave = { this.onLeave.bind(this) }
+                        >
                     { this.state.storyText }
                 </span>
                 /*{ this.state.showVoting && (

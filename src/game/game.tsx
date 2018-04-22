@@ -7,6 +7,7 @@ const socket = io();
 interface IStateType {
     story: ITextType[];
     errorMessage: string;
+    readers: number;
 }
 
 interface IPropType {
@@ -29,6 +30,7 @@ export default class Game extends React.Component<IPropType, IStateType> {
         this.state = {
             story: [],
             errorMessage: '',
+            readers: null,
         };
 
         this.inputRef = React.createRef();
@@ -52,11 +54,16 @@ export default class Game extends React.Component<IPropType, IStateType> {
         socket.on("server:error", (message: string) => {
             this.displayError(message);
         });
+
+        socket.on("server:readersUpdate", (readers: number) => {     
+            console.log(readers);
+            this.setState({ readers });
+        });
         
         this.newMessageAudio = new Audio("../../assets/audio/NewMessage.mp3");
         this.errorAudio = new Audio("../../assets/audio/Error.mp3");
 
-        socket.emit("client:getstory");
+        socket.emit("client:getdata");
     }
 
     send(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -81,7 +88,8 @@ export default class Game extends React.Component<IPropType, IStateType> {
     render() {
         return (
             <div className={ "container" }>
-            <div onClick={() => this.props.logout() } className={ "log-out" }></div>
+            <div onClick={() => this.props.logout() } className={ "log-out" } title={"Log out"}></div>
+            <div className={ "readers font" } title={this.state.readers + " people currently online"}> { this.state.readers } </div>
                 <div className={ "story" }>                
                     <h1>Story header</h1>
                     { 

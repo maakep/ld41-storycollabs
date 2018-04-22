@@ -14,14 +14,18 @@ export default class Game {
     previousWriter: string = "";
     leaderboard: IPlayer[] = [];
 
+    readers: number = 0;
+
     constructor(server: http.Server) {
         this.io = socketIo(server);
 
         this.io.on("connection", (socket) => {
             console.log("Client joined: " + socket.handshake.address);
+            
         
-            socket.on("client:getstory", () => {
+            socket.on("client:getdata", () => {
                 socket.emit("server:updateStory", this.getStory());
+                this.io.sockets.emit("server:readersUpdate", this.readers);
             });
             
             socket.on('client:send', (story: ITextType) => {
@@ -37,7 +41,10 @@ export default class Game {
         
             socket.on("disconnect", () => {
                 console.log("Client disconnected: " + socket.handshake.address);
+                this.readers--;
+                this.io.sockets.emit("server:readersUpdate", this.readers);
             })
+            this.readers++;
         });
     }
 

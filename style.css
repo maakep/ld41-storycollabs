@@ -87,11 +87,18 @@ body {
     padding-left: 20px;
 }
 
-.story-sentence {
+.story {
     font-family: 'Annie Use Your Telescope', cursive;
     font-size: 30px;
     font-weight: bold;
     overflow-wrap: break-word;
+}
+
+.font {
+    font-family: 'Annie Use Your Telescope', cursive;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: help;
 }
 
 .story-sentence:hover {
@@ -127,6 +134,10 @@ h1 {
     background-color: rgba(0,0,0,0.22);
 }*/
 
+.active {
+    background-color: rgba(0,0,0,0.22);
+}
+
 .voting {
     float: left;
 }
@@ -146,6 +157,16 @@ h1 {
 }
 .log-out:hover:active {
     zoom: 0.9;
+}
+
+.readers {
+    background: white;
+    height: 40px;
+    width: 40px;
+    position: fixed;
+    right: 20px;
+    top: 70px;
+    text-align: center;
 }
 
 .text-to-speech:hover:active {
