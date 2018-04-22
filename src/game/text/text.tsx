@@ -1,12 +1,13 @@
 import * as React from "react";
 
 export interface ITextType {
-    name: string,
-    story: string,
+    name: string;
+    story: string;
 }
 
 interface IStateType {
     storyText: string;
+    showVoting: boolean;
 }
 
 export class Text extends React.Component<ITextType, IStateType>{
@@ -20,6 +21,7 @@ export class Text extends React.Component<ITextType, IStateType>{
 
         this.state = {
             storyText: storyText,
+            showVoting: false,
         };
     }
 
@@ -33,20 +35,46 @@ export class Text extends React.Component<ITextType, IStateType>{
 
         if (!rv.isPlaying()) {
             // Only works if the text isn't too long
-            rv.speak(this.state.storyText, this.voice, {pitch: 1, rate: 1});       
+            rv.speak(this.state.storyText, this.voice, {pitch: 0.2+Math.random()*1.5, rate: 0.2+Math.random()*1.5});       
         }
         else {
             rv.cancel();
         }
     }
 
+    onEnter() {
+        this.setState({ showVoting: true });
+    }
+
+    onLeave() {
+        this.setState({ showVoting: false });
+    }
+
+    upvote() {
+
+    }
+
+    downvote() {
+
+    }
+
     render() {
-        return (
-            <span 
-            onClick={ () => this.speakText() } 
-            onMouseOver={ () => this.handleHover() }
-            data-user={ this.props.name }>{ this.state.storyText }
-            </span>
+        return (              
+                <span   className={ "story-sentence" }
+                        onClick = { this.speakText.bind(this) } 
+                        data-user = { this.props.name } >
+                    { this.state.storyText }
+                </span>
+                /*{ this.state.showVoting && (
+                    <div className={ "voting" }>
+                        <div className={ "vote up" } onClick = { this.upvote.bind(this) }>
+                        +
+                        </div>
+                        <div className={ "vote down" }>
+                        -
+                        </div>
+                    </div>
+                )}*/
         );
     }
 }

@@ -34,7 +34,7 @@ body {
         margin-top: 150px !important;
     }
 
-    span:hover:before {
+    .story-sentence:hover:before {
         top: 100px !important;
     }
 
@@ -87,18 +87,18 @@ body {
     padding-left: 20px;
 }
 
-span {
+.story-sentence {
     font-family: 'Annie Use Your Telescope', cursive;
     font-size: 30px;
     font-weight: bold;
     overflow-wrap: break-word;
 }
 
-span:hover {
+.story-sentence:hover {
     cursor: pointer;
 }
 
-span:hover:active {
+/*.story-sentence:hover:active {
     background-color: green;
 }
 
@@ -115,7 +115,7 @@ span:hover:before {
     padding: 15px;
     text-align: center;
     z-index: 2;
-}
+}*/
 
 h1 {
     font-family: 'Annie Use Your Telescope', cursive;
@@ -123,23 +123,16 @@ h1 {
     font-weight: bold;
 }
 
-span:hover {
+/*.story-sentence:hover {
     background-color: rgba(0,0,0,0.22);
-}
-
-/* Currently not being used, saved becuase I'm gonna do something very similar
-.text-to-speech {
-    background: url("/assets/images/Speaker_Icon.svg");
-    background-size: cover;
-    height: 40px;
-    width: 40px;
-    cursor: pointer;
-    position: fixed;
-    left: 20px;
-    top: 20px;
-    background-color: white;
-    border-radius: 50%;
 }*/
+
+.voting {
+    float: left;
+}
+.vote {
+    float:left;
+}
 
 .log-out {
     background: url("/assets/images/Logout.svg");
