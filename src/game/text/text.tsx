@@ -42,7 +42,11 @@ export class Text extends React.Component<ITextType, IStateType>{
 
     render() {
         return (
-            <span onClick={ () => this.speakText() } data-user={ this.props.name }>{ this.state.storyText }</span>
+            <span 
+            onClick={ () => this.speakText() } 
+            onMouseOver={ () => this.handleHover() }
+            data-user={ this.props.name }>{ this.state.storyText }
+            </span>
         );
     }
 }
