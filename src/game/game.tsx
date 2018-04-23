@@ -107,7 +107,8 @@ export default class Game extends React.Component<IPropType, IStateType> {
                                     || e.target.className === "voting"
                                     || e.target.className === "vote up"
                                     || e.target.className === "vote down"
-                                    || e.target.className === "context-name");
+                                    || e.target.className === "context-name"
+                                    || e.target.className === "speaker" );
         console.log(e.target.className);
         if (clickedDataId === undefined && !hitAllowedClicks) {
             this.setState({activeId: null});

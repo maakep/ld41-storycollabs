@@ -46,7 +46,6 @@ export class Text extends React.Component<ITextType, IStateType>{
     }
 
     onClick() {
-        this.speakText();
         this.props.activate(this.props.id);
     }
 
@@ -79,19 +78,22 @@ export class Text extends React.Component<ITextType, IStateType>{
                 </span>
                 {(this.state.hover || this.props.active) && (
                         <div className = { "text-context-menu" }>
-                            <div className = { "context-name" }>
-                                { this.props.name }
-                            </div>
-                            {this.props.active && (
+                            <div>
+                                <div className = { "context-name" }>
+                                    { this.props.name }
+                                </div>
+                                {this.props.active && (
                                 <div className = { "voting" }>
+                                    <div className={ "speaker" } onClick={ this.speakText.bind(this) }></div>
                                     <div className = { "vote up" } onClick={ this.upvote.bind(this) }>
                                     +
                                     </div>
-                                    <div className = { "vote down" }>
+                                    <div className = { "vote down" } onClick={ this.downvote.bind(this) }>
                                     -
                                     </div>
                                 </div>
-                            )}
+                                )}
+                            </div>
                         </div>
                     )}
             </span>
