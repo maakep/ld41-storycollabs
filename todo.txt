@@ -1,11 +1,12 @@
 todo:
 
-- [ ] Titel?
-        va?
-
 - [ ] history-tab: spara ner dem på fil för lagring? ladda vid server-start.
 	När X personer klickar "done" så arkiveras den.
 
+- [ ] Upvotes downvotes
+        limit 1 vote per text,
+        display your vote on each text,
+        fine-tune how many -votes until hidden.
 - [ ] sido-chat?
 
 - [x] text to speech-knapp!!!

@@ -1,19 +1,35 @@
 import * as React from "react";
-
+import { Socket } from "socket.io-client";
 export interface ITextType {
     name: string;
     story: string;
+    rating: number;
     id?: string;
     active?: boolean;
     activate?: (id: string) => void;
+    vote?: (vote: Vote) => void;
+}
+
+export type Vote = {
+    id: string;
+    rating: boolean;
+}
+
+
+interface IPropType {
+    active: boolean;
+    activate: (id: string) => void;
+    text: ITextType;
+    socket: SocketIOClient.Socket;
 }
 
 interface IStateType {
-    storyText: string;
     hover: boolean;
 }
 
 export class Text extends React.Component<ITextType, IStateType>{
+    storyText: string;
+
     constructor(props: ITextType) {
         super(props);
         
@@ -21,9 +37,9 @@ export class Text extends React.Component<ITextType, IStateType>{
         if (!storyText.endsWith(" ")) {
             storyText += " ";
         }
-
+        
+        this.storyText = storyText;
         this.state = {
-            storyText: storyText,
             hover: false,
         };
     }
@@ -38,7 +54,7 @@ export class Text extends React.Component<ITextType, IStateType>{
 
         if (!rv.isPlaying()) {
             // Only works if the text isn't too long
-            rv.speak(this.state.storyText, this.voice, {pitch: 0.2+Math.random()*1.5, rate: 0.2+Math.random()*1.5});       
+            rv.speak(this.storyText, this.voice, {pitch: 0.2+Math.random()*1.5, rate: 0.2+Math.random()*1.5});       
         }
         else {
             rv.cancel();
@@ -58,14 +74,17 @@ export class Text extends React.Component<ITextType, IStateType>{
     }
 
     upvote() {
-
+        this.props.vote({ id: this.props.id, rating: true })
     }
 
     downvote() {
-
+        this.props.vote({ id: this.props.id, rating: false })
     }
 
     render() {
+        if (this.props.rating < 0)
+            return null;
+
         return (
             <span>         
                 <span   className={ ((this.props.active || this.state.hover) && "active") + " story-sentence" }
@@ -74,7 +93,7 @@ export class Text extends React.Component<ITextType, IStateType>{
                         onMouseLeave = { this.onLeave.bind(this) }
                         data-user = { this.props.name }
                         data-id = { this.props.id }>
-                    { this.state.storyText }
+                    { this.storyText }
                 </span>
                 {(this.state.hover || this.props.active) && (
                         <div className = { "text-context-menu" }>

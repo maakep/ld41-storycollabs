@@ -1,7 +1,7 @@
 import * as socketIo from "socket.io";
 import * as http from "http";
 
-import { ITextType } from "../game/text/text";
+import { ITextType, Vote } from "../game/text/text";
 
 interface IPlayer {
     name: string,
@@ -38,12 +38,21 @@ export default class Game {
                     socket.emit("server:error", "You cannot write two times in a row.");
                 }
             });
+
+            socket.on("client:vote", (vote: Vote) => {                
+                this.story.find(x => x.id === vote.id).rating += (vote.rating ? 1 : -1);
+                this.story.forEach((e) => {
+                    console.log(e.rating);
+                });
+                socket.emit("server:updateStory", this.getStory());
+            });
         
             socket.on("disconnect", () => {
                 console.log("Client disconnected: " + socket.handshake.address);
                 this.readers--;
                 this.io.sockets.emit("server:readersUpdate", this.readers);
-            })
+            });
+
             this.readers++;
         });
     }
