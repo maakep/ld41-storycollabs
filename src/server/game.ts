@@ -44,7 +44,7 @@ export default class Game {
                 this.story.forEach((e) => {
                     console.log(e.rating);
                 });
-                socket.emit("server:updateStory", this.getStory());
+                this.io.sockets.emit("server:updateStory", this.getStory());
             });
         
             socket.on("disconnect", () => {
