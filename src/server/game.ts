@@ -7,12 +7,18 @@ interface IPlayer {
     name: string,
     points: number,
 }
+type PlayerVote = {
+    name: string,
+    messageId: string,
+    upvote: boolean,
+}
 
 export default class Game {
     io: SocketIO.Server;
     story: ITextType[] = [];
     previousWriter: string = "";
     leaderboard: IPlayer[] = [];
+    votes: PlayerVote[] = [];
 
     readers: number = 0;
 
@@ -39,11 +45,29 @@ export default class Game {
                 }
             });
 
-            socket.on("client:vote", (vote: Vote) => {                
-                this.story.find(x => x.id === vote.id).rating += (vote.rating ? 1 : -1);
-                this.story.forEach((e) => {
-                    console.log(e.rating);
-                });
+            socket.on("client:vote", (vote: Vote) => {
+                // Performance?
+                let voteAmount = vote.upvote ? 1 : -1;
+                let alreadyVoted = this.votes.find(x => x.name === socket.handshake.address 
+                                                    && x.messageId === vote.messageId 
+                                                    && x.upvote === vote.upvote) !== undefined;
+                if (alreadyVoted) {
+                    socket.emit("server:error", "You've already performed this vote.");
+                    return;
+                }
+
+                let oppositeVote = this.votes.find(x => x.name === socket.handshake.address 
+                                                    && x.messageId === vote.messageId 
+                                                    && x.upvote === !vote.upvote);
+                console.log(oppositeVote);
+
+                if (oppositeVote !== undefined) {
+                    this.votes.splice(this.votes.indexOf(oppositeVote), 1);
+                    voteAmount *= 2;
+                }
+
+                this.story.find(x => x.id === vote.messageId).rating += voteAmount;
+                this.votes.push({name: socket.handshake.address, messageId: vote.messageId, upvote: vote.upvote});
                 this.io.sockets.emit("server:updateStory", this.getStory());
             });
         
@@ -62,7 +86,7 @@ export default class Game {
     }
 
     setStory(text: ITextType) {
-        text.id = text.name + new Date().getTime();
+        text.id = text.author + new Date().getTime();
         console.log(text.id);
         this.story = [...this.story, text];
     }

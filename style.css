@@ -42,6 +42,7 @@ body {
     background-color: black;
     color: rgb(177, 14, 14);
     left: 30px;
+    z-index: 100;
 }
 
 .story-input {
