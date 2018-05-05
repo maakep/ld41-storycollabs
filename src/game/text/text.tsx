@@ -97,24 +97,22 @@ export class Text extends React.Component<ITextType, IStateType>{
                     { this.storyText }
                 </span>
                 {(this.state.hover || this.props.active) && (
-                        <div className = { "text-context-menu" }>
+                        <div className = { (this.state.hover ? "top-z " : "") + "text-context-menu" }>
                             <div>
                                 <div className = { "context-name" }>
                                     { this.props.author }
                                 </div>
-                                {this.props.active && (
                                 <div className = { "voting" }>
-                                    <div className={ "speaker" } onClick={ this.speakText.bind(this) }></div>
-                                    <div> { this.props.rating } </div>
-                                    <div className = { "vote up" } onClick={ this.upvote.bind(this) }>
-                                    +
+                                    <div className = { "vote up" } onClick={ this.upvote.bind(this) } title={"Upvote selected text"}>
+                                    ▲
                                     </div>
-                                    <div className = { "vote down" } onClick={ this.downvote.bind(this) }>
-                                    -
+                                    <div> { this.props.rating } </div>
+                                    <div className = { "vote down" } onClick={ this.downvote.bind(this) } title={"Downvote selected text (-2 to remove from story)"}>
+                                    ▼
                                     </div>
                                 </div>
-                                )}
                             </div>
+                            <div className={ "speaker" } onClick={ this.speakText.bind(this) }></div>
                         </div>
                     )}
             </span>
