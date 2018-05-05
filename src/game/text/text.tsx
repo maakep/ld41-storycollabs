@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Socket } from "socket.io-client";
 export interface ITextType {
-    name: string;
+    author: string;
     story: string;
     rating: number;
     id?: string;
@@ -11,8 +11,9 @@ export interface ITextType {
 }
 
 export type Vote = {
-    id: string;
-    rating: boolean;
+    messageId: string;
+    upvote: boolean;
+    socket?: string;
 }
 
 
@@ -74,15 +75,15 @@ export class Text extends React.Component<ITextType, IStateType>{
     }
 
     upvote() {
-        this.props.vote({ id: this.props.id, rating: true })
+        this.props.vote({ messageId: this.props.id, upvote: true })
     }
 
     downvote() {
-        this.props.vote({ id: this.props.id, rating: false })
+        this.props.vote({ messageId: this.props.id, upvote: false })
     }
 
     render() {
-        if (this.props.rating < 0)
+        if (this.props.rating < -1)
             return null;
 
         return (
@@ -91,7 +92,7 @@ export class Text extends React.Component<ITextType, IStateType>{
                         onClick = { this.onClick.bind(this) }  
                         onMouseEnter = { this.onEnter.bind(this) }
                         onMouseLeave = { this.onLeave.bind(this) }
-                        data-user = { this.props.name }
+                        data-user = { this.props.author }
                         data-id = { this.props.id }>
                     { this.storyText }
                 </span>
@@ -99,11 +100,12 @@ export class Text extends React.Component<ITextType, IStateType>{
                         <div className = { "text-context-menu" }>
                             <div>
                                 <div className = { "context-name" }>
-                                    { this.props.name }
+                                    { this.props.author }
                                 </div>
                                 {this.props.active && (
                                 <div className = { "voting" }>
                                     <div className={ "speaker" } onClick={ this.speakText.bind(this) }></div>
+                                    <div> { this.props.rating } </div>
                                     <div className = { "vote up" } onClick={ this.upvote.bind(this) }>
                                     +
                                     </div>

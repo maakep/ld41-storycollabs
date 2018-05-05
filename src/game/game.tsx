@@ -77,7 +77,7 @@ export default class Game extends React.Component<IPropType, IStateType> {
 
     send(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.keyCode === 13 && !this.inputDisabled) {
-            let story: ITextType = {name: this.props.name, story: e.currentTarget.value, rating: 0};
+            let story: ITextType = {author: this.props.name, story: e.currentTarget.value, rating: 0};
             socket.emit("client:send", story);
         } else if (e.keyCode === 13 && this.inputDisabled) {
             this.displayError("Someone just added to the story, make sure you read it before adding your addition.");
@@ -131,7 +131,7 @@ export default class Game extends React.Component<IPropType, IStateType> {
                                         active = { (this.state.activeId === value.id) }
                                         id = { value.id }
                                         activate = { this.activateSentence.bind(this) }
-                                        name = { value.name } 
+                                        author = { value.author } 
                                         story = { value.story } 
                                         key = { value.id } 
                                         rating = { value.rating } 
