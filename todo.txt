@@ -1,13 +1,13 @@
 todo:
 
-- [ ] history-tab: spara ner dem på fil för lagring? ladda vid server-start.
-	När X personer klickar "done" så arkiveras den.
+- [x] storage: spara ner dem på fil för lagring? ladda vid server-start.
 
-- [ ] Upvotes downvotes
-        limit 1 vote per text,
-        display your vote on each text,
-        fine-tune how many -votes until hidden.
-- [ ] sido-chat?
+- [ ] player-driven archiving/history; När X personer klickar "done" så arkiveras den.
+
+- [-] Upvotes downvotes
+        [x] limit 1 vote per text,
+        [ ] display your vote on each text,
+        [x] fine-tune how many -votes until hidden.
 
 - [x] text to speech-knapp!!!
 

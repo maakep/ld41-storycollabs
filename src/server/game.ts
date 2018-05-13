@@ -1,6 +1,6 @@
 import * as socketIo from "socket.io";
 import * as http from "http";
-import * as Database from "@devkep/database-json";
+import Database from "@devkep/database-json";
 
 import { ITextType, Vote } from "../game/text/text";
 
@@ -21,15 +21,21 @@ export default class Game {
     previousWriter: string = "";
     leaderboard: IPlayer[] = [];
     votes: PlayerVote[] = [];
+    db: Database;
 
     readers: number = 0;
 
     constructor(server: http.Server) {
         this.io = socketIo(server);
 
+        this.db = new Database("story-db");
+        let storedStory = this.db.read("story");
+        if (storedStory === undefined)
+            this.db.push("story", []);
+        this.story = this.db.read("story");
+
         this.io.on("connection", (socket) => {
             console.log("Client joined: " + socket.handshake.address);
-            
         
             socket.on("client:getdata", () => {
                 socket.emit("server:updateStory", this.getStory());
@@ -91,5 +97,6 @@ export default class Game {
         text.id = text.author + new Date().getTime();
         console.log(text.id);
         this.story = [...this.story, text];
+        this.db.push("story", this.story);
     }
 }
