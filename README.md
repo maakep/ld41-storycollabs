@@ -7,12 +7,9 @@ Clone and navigate to root:
 
 Build client
 
-1. `npm i webpack webpack-cli ts-node -g`
-2. `npm i`
-3. `webpack`
-or `webpack --watch`
+1. `npm i`
+1. `npm run build`
 
 
 Start server
-1. `ts-node src/server/server.ts`
-or `npm run server`
+1. `npm run server`
