@@ -17,7 +17,7 @@
     "@types/react-dom": "16.0.5",
     "@types/socket.io": "1.4.33",
     "@types/socket.io-client": "1.4.32",
-    "express": "4.16.3",
+    "express": "4.17.3",
     "react": "16.3.1",
     "react-dom": "16.3.1",
     "socket.io": "2.1.0",
